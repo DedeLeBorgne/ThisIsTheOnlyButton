@@ -8,6 +8,8 @@ public class TimerManager : MonoBehaviour
     private float timer = 0;
     private int minutes;
     private float seconds;
+    private int currentLevel = 1;
+    private int lastCorridorTriggered = 2;
     // private bool hasAlreadyBeenTriggered = false;
     [SerializeField] private TextMeshProUGUI timerText;
     bool stopTimer = true;
@@ -43,19 +45,66 @@ public class TimerManager : MonoBehaviour
             {
                 other.gameObject.GetComponent<TriggerTimer>().hasAlreadyBeenTriggered = true;
                 stopTimer = false;
-            }         
+            }
         }
-        
+
+        if (other.gameObject.CompareTag("ActivateurDeNiveauCouloir1"))
+        {
+            if (lastCorridorTriggered == 2)
+            {
+                DeactivatePreviousLevelAndActivateNextLevel(other);
+                lastCorridorTriggered = 1;
+            }
+
+        }
+
+        if (other.gameObject.CompareTag("ActivateurDeNiveauCouloir2"))
+        {
+            if (lastCorridorTriggered == 1)
+            {
+                DeactivatePreviousLevelAndActivateNextLevel(other);
+                lastCorridorTriggered = 2;
+            }
+
+        }
     }
+
+    private void DeactivatePreviousLevelAndActivateNextLevel(Collider other)
+    {
+        other.gameObject.transform.GetChild(0).gameObject.SetActive(true); // Active un mur qui empêche le joueur de faire demi-tour dans le couloir où il est actuellement
+        // Désactivation du mur de l'autre couloir : 
+        GameObject nextCorridor = GameObject.FindGameObjectWithTag("ActivateurDeNiveauCouloir" + lastCorridorTriggered);
+        nextCorridor.gameObject.transform.GetChild(0).gameObject.SetActive(false); 
+
+        // Désactivation du niveau précédent :
+        GameObject previousLevel = GameObject.FindGameObjectWithTag("Niveau " + currentLevel);
+        previousLevel.gameObject.SetActive(false);
+
+        // Activation du niveau suivant :
+        GameObject nextLevel = GameObject.FindGameObjectWithTag("Niveau " + (currentLevel + 1)).transform.GetChild(0).gameObject;
+        nextLevel.gameObject.SetActive(true);
+
+        currentLevel++;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Bouton"))
         {
+            other.gameObject.transform.GetChild(2).gameObject.SetActive(true);
             if (Input.GetKey(KeyCode.E))
             {
                 other.gameObject.GetComponent<ButtonScript>().buttonPressed = true;
                 stopTimer = true;
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bouton"))
+        {
+            other.gameObject.transform.GetChild(2).gameObject.SetActive(false);
         }
     }
 }

@@ -6,6 +6,12 @@ TagManager:
   tags:
   - LanceurDeTimer
   - Bouton
+  - WallLinkedToButton
+  - Niveau 1
+  - Niveau 2
+  - ActivateurDeNiveauCouloir1
+  - ActivateurDeNiveauCouloir2
+  - Niveau 3
   layers:
   - Default
   - TransparentFX
