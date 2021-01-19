@@ -8,11 +8,14 @@ public class TimerManager : MonoBehaviour
     private float timer = 0;
     private int minutes;
     private float seconds;
+
     private int currentLevel = 1;
     private int lastCorridorTriggered = 2;
+
     // private bool hasAlreadyBeenTriggered = false;
     [SerializeField] private TextMeshProUGUI timerText;
     bool stopTimer = true;
+
     private GameObject teleportGoal;
     private float respawnTimer;
     private float deadTime = 0.1f;
@@ -39,7 +42,7 @@ public class TimerManager : MonoBehaviour
              stopTimer = true;
          }*/
 
-        if (timer > respawnTimer)
+        if (timer >= respawnTimer)
         {
             this.GetComponent<SC_FPSController>().enabled = true;
         }
@@ -78,21 +81,26 @@ public class TimerManager : MonoBehaviour
 
         if (other.gameObject.CompareTag("DeathZone"))
         {
+            // Quand le joueur rentre dans une deathzone, on désactive le CharacterController (sinon ça crée une erreur au moment de la téléportation au checkpoint)
+            this.GetComponent<SC_FPSController>().enabled = false;
+            // ET on rend respawntimer supérieur à timer. Or, le charactercontroller ne s'active que si le timer est supérieur au respawntimer (cf Update)
+            // Donc on définit aussi combien de temps il sera mort (ne pourra plus se déplacer)
+            respawnTimer = timer + deadTime;
+
+            // Si le joueur est mort est dans un niveau pair (dernier couloir traversé = corridor 1), alors on le fait respawner au Checkpoint situé à la fin du corridor 1 (et on reset sa position)
             if (lastCorridorTriggered == 1)
             {
                 teleportGoal = GameObject.FindGameObjectWithTag("CheckpointRespawn1");
-                this.GetComponent<SC_FPSController>().enabled = false;
                 this.gameObject.transform.position = teleportGoal.gameObject.transform.position;
                 this.gameObject.transform.rotation = teleportGoal.gameObject.transform.rotation;
-                respawnTimer = timer + deadTime;
             }
+
+            // Si le joueur est mort est dans un niveau impair (dernier couloir traversé = corridor 2), alors on le fait respawner au Checkpoint situé à la fin du corridor 2 (et on reset sa position)
             if (lastCorridorTriggered == 2)
             {
                 teleportGoal = GameObject.FindGameObjectWithTag("CheckpointRespawn2");
-                this.GetComponent<SC_FPSController>().enabled = false;
                 this.gameObject.transform.position = teleportGoal.gameObject.transform.position;
                 this.gameObject.transform.rotation = teleportGoal.gameObject.transform.rotation;
-                respawnTimer = timer + deadTime;
             }
         }
     }
