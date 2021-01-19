@@ -19,6 +19,7 @@ public class TimerManager : MonoBehaviour
     private GameObject teleportGoal;
     private float respawnTimer;
     private float deadTime = 0.1f;
+    private bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -44,9 +45,20 @@ public class TimerManager : MonoBehaviour
              stopTimer = true;
          }*/
 
-        if (timer >= respawnTimer)
+      /*  if (timer >= respawnTimer)
         {
             this.GetComponent<SC_FPSController>().enabled = true;
+        }*/
+
+        if (isDead)
+        {
+            respawnTimer += Time.deltaTime;
+            if (respawnTimer >= deadTime)
+            {
+                this.GetComponent<SC_FPSController>().enabled = true;
+                isDead = false;
+                respawnTimer = 0;
+            }
         }
     }
 
@@ -85,9 +97,8 @@ public class TimerManager : MonoBehaviour
         {
             // Quand le joueur rentre dans une deathzone, on désactive le CharacterController (sinon ça crée une erreur au moment de la téléportation au checkpoint)
             this.GetComponent<SC_FPSController>().enabled = false;
-            // ET on rend respawntimer supérieur à timer. Or, le charactercontroller ne s'active que si le timer est supérieur au respawntimer (cf Update)
-            // Donc on définit aussi combien de temps il sera mort (ne pourra plus se déplacer)
-            respawnTimer = timer + deadTime;
+            // ET on active isDead, qui va nous rendre le contrôle du characterController après un certain temps (cf Update)
+            isDead = true;
 
             // Si le joueur est mort est dans un niveau pair (dernier couloir traversé = corridor 1), alors on le fait respawner au Checkpoint situé à la fin du corridor 1 (et on reset sa position)
             if (lastCorridorTriggered == 1)
