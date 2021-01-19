@@ -12,8 +12,8 @@ public class TimerManager : MonoBehaviour
     private int currentLevel = 1;
     private int lastCorridorTriggered = 2;
 
-    // private bool hasAlreadyBeenTriggered = false;
-    [SerializeField] private TextMeshProUGUI timerText;
+// private bool hasAlreadyBeenTriggered = false;
+[SerializeField] private TextMeshProUGUI timerText;
     bool stopTimer = true;
 
     private GameObject teleportGoal;
@@ -24,6 +24,8 @@ public class TimerManager : MonoBehaviour
     void Start()
     {
         timerText.text = "";
+        // La fonction qui suit vient vérifier que les gameobjects qui doivent être désactivés pour que le code fonctionne (les "Activators") sont bien tous désactivés, et désactive ceux qui ne le sont pas.
+        // DeactivateAllActivators();
     }
 
     // Update is called once per frame
@@ -121,6 +123,20 @@ public class TimerManager : MonoBehaviour
         nextLevel.gameObject.SetActive(true);
 
         currentLevel++;
+    }
+
+    private void DeactivateAllActivators()
+    {
+        GameObject levelCounter = GameObject.Find("Levels");
+
+        for (int i = 1; i < levelCounter.transform.childCount; i ++)
+        {
+            // On va chercher l'activator de chaque niveau (à partir du niveau 2)
+            GameObject levelToDisable = levelCounter.transform.GetChild(i).transform.GetChild(0).gameObject;
+            // On le désactive
+            levelToDisable.SetActive(false);
+            // Debug.Log("Level disabled : " + levelToDisable);
+        }
     }
 
     private void OnTriggerStay(Collider other)
