@@ -13,6 +13,9 @@ public class TimerManager : MonoBehaviour
     // private bool hasAlreadyBeenTriggered = false;
     [SerializeField] private TextMeshProUGUI timerText;
     bool stopTimer = true;
+    private GameObject teleportGoal;
+    private float respawnTimer;
+    private float deadTime = 0.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +34,15 @@ public class TimerManager : MonoBehaviour
             // Debug.Log(minutes + ":" + seconds.ToString("00.00"));
             timerText.text = minutes + ":" + seconds.ToString("00.00");
         }
-       /*if (timer > 5 && !stopTimer)
+        /*if (timer > 5 && !stopTimer)
+         {
+             stopTimer = true;
+         }*/
+
+        if (timer > respawnTimer)
         {
-            stopTimer = true;
-        }*/
+            this.GetComponent<SC_FPSController>().enabled = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -66,6 +74,26 @@ public class TimerManager : MonoBehaviour
                 lastCorridorTriggered = 2;
             }
 
+        }
+
+        if (other.gameObject.CompareTag("DeathZone"))
+        {
+            if (lastCorridorTriggered == 1)
+            {
+                teleportGoal = GameObject.FindGameObjectWithTag("CheckpointRespawn1");
+                this.GetComponent<SC_FPSController>().enabled = false;
+                this.gameObject.transform.position = teleportGoal.gameObject.transform.position;
+                this.gameObject.transform.rotation = teleportGoal.gameObject.transform.rotation;
+                respawnTimer = timer + deadTime;
+            }
+            if (lastCorridorTriggered == 2)
+            {
+                teleportGoal = GameObject.FindGameObjectWithTag("CheckpointRespawn2");
+                this.GetComponent<SC_FPSController>().enabled = false;
+                this.gameObject.transform.position = teleportGoal.gameObject.transform.position;
+                this.gameObject.transform.rotation = teleportGoal.gameObject.transform.rotation;
+                respawnTimer = timer + deadTime;
+            }
         }
     }
 

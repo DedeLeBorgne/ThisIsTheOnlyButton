@@ -12,6 +12,9 @@ TagManager:
   - ActivateurDeNiveauCouloir1
   - ActivateurDeNiveauCouloir2
   - Niveau 3
+  - CheckpointRespawn1
+  - CheckpointRespawn2
+  - DeathZone
   layers:
   - Default
   - TransparentFX
