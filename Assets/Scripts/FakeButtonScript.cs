@@ -20,7 +20,7 @@ public class FakeButtonScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (this.CompareTag("TrapButton"))
+        if (this.CompareTag("TrapButton") || this.CompareTag("TrapButton (floor)"))
         {
             trapLinkedToButton = GameObject.FindGameObjectWithTag("trapLinkedToButton");
         }
@@ -56,6 +56,10 @@ public class FakeButtonScript : MonoBehaviour
                 } else if (this.CompareTag("TrapButton") && trapLinkedToButton.transform.position.y < yCoordinateWhereWallIsBelowGround)
                 {
                     trapMoveSpeed = 0;
+                    Destroy(gameObject);
+                } else if (this.CompareTag("TrapButton (floor)"))
+                {
+                    trapLinkedToButton.gameObject.SetActive(false);
                     Destroy(gameObject);
                 }
                 

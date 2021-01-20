@@ -18,6 +18,7 @@ public class SC_FPSController : MonoBehaviour
     float rotationX = 0;
 
     public bool invertedControls = false;
+    public bool checkMovement = false;
 
     void Start()
     {
@@ -46,6 +47,17 @@ public class SC_FPSController : MonoBehaviour
             moveDirection = (-forward * currentSpeedForward) + (-right * currentSpeedHorizontal);
         }
 
+        if (checkMovement)
+        {
+            GameObject button = GameObject.FindGameObjectWithTag("Niveau10Activator").gameObject.transform.GetChild(0).gameObject;
+            if (moveDirection == Vector3.zero)
+            {
+                button.gameObject.SetActive(true);
+            }
+            else {
+                button.gameObject.SetActive(false);
+            }
+        }
 
         if (Input.GetButton("Jump") && characterController.isGrounded)
         {

@@ -21,6 +21,14 @@ TagManager:
   - Niveau 5
   - Niveau 6
   - Niveau 7
+  - trapLinkedToButton
+  - Niveau 8
+  - Niveau 9
+  - TrapButton (floor)
+  - Niveau 10
+  - Niveau10Activator
+  - Niveau 11
+  - Niveau 12
   layers:
   - Default
   - TransparentFX

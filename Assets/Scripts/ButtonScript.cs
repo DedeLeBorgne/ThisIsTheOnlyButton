@@ -15,12 +15,14 @@ public class ButtonScript : MonoBehaviour
     private float yCoordinateWhereWallIsBelowGround = -2.5f;
     public TextMeshPro pressEText;
     private GameObject wallLinkedToButton;
+    private GameObject player;
 
 
     // Start is called before the first frame update
     void Start()
     {
         wallLinkedToButton = GameObject.FindGameObjectWithTag("WallLinkedToButton");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
 
@@ -60,6 +62,8 @@ public class ButtonScript : MonoBehaviour
 
                     gameObject.transform.GetChild(2).transform.Translate = ;*/
         }
+
+        
 
     }
 }

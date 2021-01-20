@@ -76,6 +76,9 @@ public class TimerManager : MonoBehaviour
                     case 6:
                         this.gameObject.GetComponent<SC_FPSController>().invertedControls = true;
                         break;
+                    case 10:
+                        this.gameObject.GetComponent<SC_FPSController>().checkMovement = true;
+                        break;
                 }
             }
         }
@@ -171,11 +174,14 @@ public class TimerManager : MonoBehaviour
                     case 6:
                         this.gameObject.GetComponent<SC_FPSController>().invertedControls = false;
                         break;
+                    case 10:
+                        this.gameObject.GetComponent<SC_FPSController>().checkMovement = false;
+                        break;
                 }
             }
         }
 
-        if (other.gameObject.CompareTag("FakeButton") || other.gameObject.CompareTag("TrapButton"))
+        if (other.gameObject.CompareTag("FakeButton") || other.gameObject.CompareTag("TrapButton") || other.gameObject.CompareTag("TrapButton (floor)"))
         {
             other.gameObject.transform.GetChild(2).gameObject.SetActive(true);
             if (Input.GetKey(KeyCode.E))
@@ -187,7 +193,7 @@ public class TimerManager : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Bouton") || other.gameObject.CompareTag("FakeButton") || other.gameObject.CompareTag("TrapButton"))
+        if (other.gameObject.CompareTag("Bouton") || other.gameObject.CompareTag("FakeButton") || other.gameObject.CompareTag("TrapButton") || other.gameObject.CompareTag("TrapButton (floor)"))
         {
             other.gameObject.transform.GetChild(2).gameObject.SetActive(false);
         }
