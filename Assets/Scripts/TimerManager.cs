@@ -161,11 +161,20 @@ public class TimerManager : MonoBehaviour
                 stopTimer = true;
             }
         }
+
+        if (other.gameObject.CompareTag("FakeButton") || other.gameObject.CompareTag("TrapButton"))
+        {
+            other.gameObject.transform.GetChild(2).gameObject.SetActive(true);
+            if (Input.GetKey(KeyCode.E))
+            {
+                other.gameObject.GetComponent<FakeButtonScript>().buttonPressed = true;
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Bouton"))
+        if (other.gameObject.CompareTag("Bouton") || other.gameObject.CompareTag("FakeButton") || other.gameObject.CompareTag("TrapButton"))
         {
             other.gameObject.transform.GetChild(2).gameObject.SetActive(false);
         }
