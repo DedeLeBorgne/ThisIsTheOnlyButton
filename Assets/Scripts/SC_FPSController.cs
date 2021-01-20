@@ -17,6 +17,8 @@ public class SC_FPSController : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
 
+    public bool invertedControls = false;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -35,7 +37,14 @@ public class SC_FPSController : MonoBehaviour
         float currentSpeedHorizontal = Speed * Input.GetAxis("Horizontal");
 
         float movementDirectionY = moveDirection.y;
-        moveDirection = (forward * currentSpeedForward) + (right * currentSpeedHorizontal);
+
+        if (!invertedControls)
+        {
+            moveDirection = (forward * currentSpeedForward) + (right * currentSpeedHorizontal);
+        } else if (invertedControls)
+        {
+            moveDirection = (-forward * currentSpeedForward) + (-right * currentSpeedHorizontal);
+        }
 
 
         if (Input.GetButton("Jump") && characterController.isGrounded)

@@ -9,7 +9,7 @@ public class TimerManager : MonoBehaviour
     private int minutes;
     private float seconds;
 
-    private int currentLevel = 1;
+    [SerializeField] private int currentLevel = 1;
     private int lastCorridorTriggered = 2;
 
 // private bool hasAlreadyBeenTriggered = false;
@@ -70,6 +70,13 @@ public class TimerManager : MonoBehaviour
             {
                 other.gameObject.GetComponent<TriggerTimer>().hasAlreadyBeenTriggered = true;
                 stopTimer = false;
+
+                switch (currentLevel)
+                {
+                    case 6:
+                        this.gameObject.GetComponent<SC_FPSController>().invertedControls = true;
+                        break;
+                }
             }
         }
 
@@ -159,6 +166,12 @@ public class TimerManager : MonoBehaviour
             {
                 other.gameObject.GetComponent<ButtonScript>().buttonPressed = true;
                 stopTimer = true;
+                switch (currentLevel)
+                {
+                    case 6:
+                        this.gameObject.GetComponent<SC_FPSController>().invertedControls = false;
+                        break;
+                }
             }
         }
 

@@ -17,6 +17,10 @@ TagManager:
   - DeathZone
   - FakeButton
   - TrapButton
+  - Niveau 4
+  - Niveau 5
+  - Niveau 6
+  - Niveau 7
   layers:
   - Default
   - TransparentFX
