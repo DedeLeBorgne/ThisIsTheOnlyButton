@@ -272,6 +272,7 @@ public class TimerManager : MonoBehaviour
             timerText.gameObject.SetActive(false);
             yourFinalTimeText.text = minutes + ":" + seconds.ToString("00.00");
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         
 
