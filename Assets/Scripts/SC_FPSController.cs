@@ -19,6 +19,7 @@ public class SC_FPSController : MonoBehaviour
 
     public bool invertedControls = false;
     public bool checkMovement = false;
+    public bool checkRotation = false;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class SC_FPSController : MonoBehaviour
 
         // Bloquer le curseur
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -58,6 +60,24 @@ public class SC_FPSController : MonoBehaviour
                 button.gameObject.SetActive(false);
             }
         }
+
+        if (checkRotation)
+        {
+            GameObject button = GameObject.FindGameObjectWithTag("Niveau13Activator").gameObject.transform.GetChild(0).gameObject;
+            float rotationAngleAuthorized = 0.37f;
+
+            if (this.transform.rotation.y < -rotationAngleAuthorized || this.transform.rotation.y > rotationAngleAuthorized || this.transform.position.z < -11.19f)
+            {
+                // Debug.Log("WRONG ! rotation : " + transform.rotation.y);
+                button.gameObject.SetActive(false);
+            } else
+            {
+                 // Debug.Log("GOOD ! rotation : " + transform.rotation.y);
+                button.gameObject.SetActive(true);
+            }
+        }
+
+
 
         if (Input.GetButton("Jump") && characterController.isGrounded)
         {

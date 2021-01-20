@@ -29,6 +29,9 @@ TagManager:
   - Niveau10Activator
   - Niveau 11
   - Niveau 12
+  - Possibilities
+  - Niveau 13
+  - Niveau13Activator
   layers:
   - Default
   - TransparentFX

@@ -21,12 +21,24 @@ public class TimerManager : MonoBehaviour
     private float deadTime = 0.1f;
     private bool isDead = false;
 
+    private bool seesButtonMoving = false;
+    private int index = 0;
+    private bool buttonHasMoved = false;
+    private float timerAddition = 0;
+
+    private GameObject levelCounter ;
+
+    private bool gameAlreadyWon = false;
+    [SerializeField] private TextMeshProUGUI yourFinalTimeText;
+
+
     // Start is called before the first frame update
     void Start()
     {
         timerText.text = "";
         // La fonction qui suit vient vérifier que les gameobjects qui doivent être désactivés pour que le code fonctionne (les "Activators") sont bien tous désactivés, et désactive ceux qui ne le sont pas.
-        // DeactivateAllActivators();
+        levelCounter = GameObject.Find("Levels");
+        DeactivateAllActivators();
     }
 
     // Update is called once per frame
@@ -60,6 +72,12 @@ public class TimerManager : MonoBehaviour
                 respawnTimer = 0;
             }
         }
+
+        if (seesButtonMoving)
+        {
+            MoveButton();
+            
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -78,6 +96,12 @@ public class TimerManager : MonoBehaviour
                         break;
                     case 10:
                         this.gameObject.GetComponent<SC_FPSController>().checkMovement = true;
+                        break;
+                    case 12:
+                        seesButtonMoving = true;
+                        break;
+                    case 13:
+                        this.gameObject.GetComponent<SC_FPSController>().checkRotation = true;
                         break;
                 }
             }
@@ -148,7 +172,6 @@ public class TimerManager : MonoBehaviour
 
     private void DeactivateAllActivators()
     {
-        GameObject levelCounter = GameObject.Find("Levels");
 
         for (int i = 1; i < levelCounter.transform.childCount; i ++)
         {
@@ -177,6 +200,18 @@ public class TimerManager : MonoBehaviour
                     case 10:
                         this.gameObject.GetComponent<SC_FPSController>().checkMovement = false;
                         break;
+                    case 12:
+                        seesButtonMoving = false;
+                        break;
+                    case 13:
+                        this.gameObject.GetComponent<SC_FPSController>().checkRotation = false;
+                        break;
+
+                }
+                if (currentLevel == levelCounter.transform.childCount)
+                {
+                    EndGame();
+                    gameAlreadyWon = true;
                 }
             }
         }
@@ -197,5 +232,48 @@ public class TimerManager : MonoBehaviour
         {
             other.gameObject.transform.GetChild(2).gameObject.SetActive(false);
         }
+    }
+
+    private void MoveButton()
+    {
+        GameObject button = GameObject.FindGameObjectWithTag("Bouton").gameObject;
+        GameObject[] positions = GameObject.FindGameObjectsWithTag("Possibilities");
+        float timerInterval = 5.0f;
+
+        if (!buttonHasMoved)
+        {
+            button.transform.position = positions[index].transform.position;
+            buttonHasMoved = true;
+           //  Debug.Log("Button moving");
+            timerAddition = timer + timerInterval;
+        }
+          
+        if (buttonHasMoved && timer > timerAddition && timerAddition != 0)
+            {
+                index++;
+            // Debug.Log("Index increasing");
+            buttonHasMoved = false;
+                if (index == (positions.Length))
+                {
+                    index = 0;
+                } 
+            } 
+    }
+
+    private void EndGame()
+    {
+        if (!gameAlreadyWon)
+        {
+            Debug.Log("Gagné !");
+            this.GetComponent<SC_FPSController>().enabled = false;
+
+            GameObject endGameMenu = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+            endGameMenu.SetActive(true);
+            timerText.gameObject.SetActive(false);
+            yourFinalTimeText.text = minutes + ":" + seconds.ToString("00.00");
+            Cursor.lockState = CursorLockMode.None;
+        }
+        
+
     }
 }
