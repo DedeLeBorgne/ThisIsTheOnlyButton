@@ -20,6 +20,7 @@ public class TimerManager : MonoBehaviour
     private float respawnTimer;
     private float deadTime = 0.1f;
     private bool isDead = false;
+    private int numberOfDeath = 0;
 
     private bool seesButtonMoving = false;
     private int index = 0;
@@ -30,6 +31,7 @@ public class TimerManager : MonoBehaviour
 
     private bool gameAlreadyWon = false;
     [SerializeField] private TextMeshProUGUI yourFinalTimeText;
+    [SerializeField] private TextMeshProUGUI yourFinalDeathCountText;
 
 
     // Start is called before the first frame update
@@ -133,6 +135,7 @@ public class TimerManager : MonoBehaviour
             this.GetComponent<SC_FPSController>().enabled = false;
             // ET on active isDead, qui va nous rendre le contrôle du characterController après un certain temps (cf Update)
             isDead = true;
+            numberOfDeath++;
 
             // Si le joueur est mort est dans un niveau pair (dernier couloir traversé = corridor 1), alors on le fait respawner au Checkpoint situé à la fin du corridor 1 (et on reset sa position)
             if (lastCorridorTriggered == 1)
@@ -271,6 +274,19 @@ public class TimerManager : MonoBehaviour
             endGameMenu.SetActive(true);
             timerText.gameObject.SetActive(false);
             yourFinalTimeText.text = minutes + ":" + seconds.ToString("00.00");
+
+            if (numberOfDeath == 0)
+            {
+                yourFinalDeathCountText.text = "(AND YOU DIDN'T DIE EVEN ONCE !)";
+
+            } else if (numberOfDeath == 1)
+            {
+                yourFinalDeathCountText.text = "(and you died " + numberOfDeath + " time.)";
+            } else if (numberOfDeath > 1)
+            {
+                yourFinalDeathCountText.text = "(and you died " + numberOfDeath + " times.)";
+            }
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
