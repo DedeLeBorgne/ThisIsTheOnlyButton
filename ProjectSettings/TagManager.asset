@@ -32,6 +32,7 @@ TagManager:
   - Possibilities
   - Niveau 13
   - Niveau13Activator
+  - MenuPause
   layers:
   - Default
   - TransparentFX
