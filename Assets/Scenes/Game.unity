@@ -29452,7 +29452,7 @@ MonoBehaviour:
   currentLevel: 1
   timerText: {fileID: 289732201}
   yourFinalTimeText: {fileID: 1556271727}
-  yourFinalDeathCountText: {fileID: 0}
+  yourFinalDeathCountText: {fileID: 1004003140}
 --- !u!1 &929122157
 GameObject:
   m_ObjectHideFlags: 0
