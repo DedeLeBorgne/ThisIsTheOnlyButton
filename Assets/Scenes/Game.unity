@@ -5233,7 +5233,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pause Menu
+  m_text: Pause
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c13e36726f0c0848b33c5190cfee302, type: 2}
   m_sharedMaterial: {fileID: 1652341037510681769, guid: 0c13e36726f0c0848b33c5190cfee302,
@@ -34271,8 +34271,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000011444, y: -132}
-  m_SizeDelta: {x: 94.22658, y: 38.267647}
+  m_AnchoredPosition: {x: 3, y: -137.26}
+  m_SizeDelta: {x: 107.84599, y: 48.79322}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1073940109
 MonoBehaviour:
@@ -53819,7 +53819,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BACK
+  m_text: 'BACK
+
+    TO MENU'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c13e36726f0c0848b33c5190cfee302, type: 2}
   m_sharedMaterial: {fileID: 1652341037510681769, guid: 0c13e36726f0c0848b33c5190cfee302,
@@ -53848,8 +53850,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
-  m_fontSizeBase: 35
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

@@ -37,7 +37,7 @@ public class SC_FPSController : MonoBehaviour
         
 
         // Mettre le jeu en pause
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.Escape))
             isPaused = !isPaused;
 
         if(isPaused)
