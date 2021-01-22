@@ -289,6 +289,9 @@ public class TimerManager : MonoBehaviour
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            GameObject.Find("HighScoreManagerStorer").GetComponent<LeaderboardStoredScore>().time = timer;
+            GameObject.Find("HighScoreManagerStorer").GetComponent<LeaderboardStoredScore>().deathCount = numberOfDeath;
         }
         
 
