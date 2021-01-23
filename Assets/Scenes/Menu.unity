@@ -743,8 +743,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3424,7 +3424,7 @@ GameObject:
   - component: {fileID: 1072603270}
   m_Layer: 0
   m_Name: HighScoreManagerStorer
-  m_TagString: Untagged
+  m_TagString: HighScoreManagerStorer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3443,6 +3443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 0
   deathCount: 0
+  currentBestTime: 1800
 --- !u!4 &1072603271
 Transform:
   m_ObjectHideFlags: 0
@@ -3772,8 +3773,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5885f1a4702d5ab44b8935128382db26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 733.22
-  pseudo: Luisil
+  time: 600
+  pseudo: Bronze Medal
   deathCount: 9
   timeText: {fileID: 428333525}
   nameText: {fileID: 1658768515}
@@ -3824,9 +3825,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5885f1a4702d5ab44b8935128382db26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 600
-  pseudo: Bronze Medal
-  deathCount: 9
+  time: 553.32
+  pseudo: Luisil
+  deathCount: 7
   timeText: {fileID: 1838563525}
   nameText: {fileID: 974229264}
   deathCountText: {fileID: 1576654646}
@@ -4010,9 +4011,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5885f1a4702d5ab44b8935128382db26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 90.71
+  time: 80.63
   pseudo: DEV_Liloosh
-  deathCount: 2
+  deathCount: 0
   timeText: {fileID: 491984744}
   nameText: {fileID: 721153733}
   deathCountText: {fileID: 544083767}
@@ -5202,7 +5203,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575721397}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -590.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 378016731}
@@ -5211,7 +5212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 64, y: -93}
+  m_AnchoredPosition: {x: 122.4, y: -107}
   m_SizeDelta: {x: 86.37018, y: 31.02592}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1575721399
@@ -5459,7 +5460,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1589889432}
-  - component: {fileID: 1589889433}
   - component: {fileID: 1589889434}
   m_Layer: 0
   m_Name: HighscoreEntryContainer
@@ -5491,18 +5491,6 @@ Transform:
   m_Father: {fileID: 1950898629}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1589889433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1589889431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e7d18b2fb96d7c4b8c196111092c4fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1589889434
 MonoBehaviour:
   m_ObjectHideFlags: 0

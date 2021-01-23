@@ -33,6 +33,7 @@ TagManager:
   - Niveau 13
   - Niveau13Activator
   - MenuPause
+  - HighScoreManagerStorer
   layers:
   - Default
   - TransparentFX

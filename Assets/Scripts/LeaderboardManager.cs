@@ -30,10 +30,10 @@ public class LeaderboardManager : MonoBehaviour
         newScorePrefab.transform.SetParent(leaderBoard.transform);
         newScorePrefab.transform.rotation = new Quaternion(0, 0, 0, 0);
         newScorePrefab.transform.localScale = new Vector3(1, 1, 1);
-        newScorePrefab.transform.position = leaderBoard.transform.position + new Vector3(0, -4.467f, 0);
+        newScorePrefab.transform.position = leaderBoard.transform.position + new Vector3(0, -5f, 0);
 
         // Placement de la ligne de score exactement au bon endroit
-        float yMarginBetweenEachLine = -5.0f;
+        float yMarginBetweenEachLine = -5f;
         bool oneNewPersonInLeaderboard = false;
         for (int i = 0; i < leaderBoard.transform.childCount-1; i++)
         {
@@ -44,14 +44,14 @@ public class LeaderboardManager : MonoBehaviour
                 newScorePrefab.transform.position += new Vector3(0, i * yMarginBetweenEachLine, 0);
 
                 newScorePrefab.transform.GetComponent<LeaderboardValue>().time = timeInSeconds;
-                newScorePrefab.transform.GetComponent<LeaderboardValue>().pseudo = "YOUR BEST TIME";
+                newScorePrefab.transform.GetComponent<LeaderboardValue>().pseudo = "YOUR PERSONAL BEST";
                 newScorePrefab.transform.GetComponent<LeaderboardValue>().deathCount = numberOfDeath;
 
                 for (int y = i; y < leaderBoard.transform.childCount; y++)
                 {
                     if (leaderBoard.transform.GetChild(y).transform.GetComponent<LeaderboardValue>().time > timeInSeconds)
                     {
-                        Debug.Log("Décalage de " + leaderBoard.transform.GetChild(y).transform.GetComponent<LeaderboardValue>().time + " - " + leaderBoard.transform.GetChild(y).transform.GetComponent<LeaderboardValue>().name);
+                        // Debug.Log("Décalage de " + leaderBoard.transform.GetChild(y).transform.GetComponent<LeaderboardValue>().time + " - " + leaderBoard.transform.GetChild(y).transform.GetComponent<LeaderboardValue>().pseudo);
                         leaderBoard.transform.GetChild(y).transform.position += new Vector3(0, yMarginBetweenEachLine, 0);
                     }
                   
@@ -75,12 +75,12 @@ public class LeaderboardManager : MonoBehaviour
                 }
             }
 
-            Debug.Log("Destroying " + currentWorstTime.transform.GetComponent<LeaderboardValue>().time + " - " + currentWorstTime.transform.GetComponent<LeaderboardValue>().name);
+            // Debug.Log("Destroying " + currentWorstTime.transform.GetComponent<LeaderboardValue>().time + " - " + currentWorstTime.transform.GetComponent<LeaderboardValue>().pseudo);
             Destroy(currentWorstTime);
         }
 
 
 
-        Debug.Log("Done");
+        // Debug.Log("Done");
     }
 }
