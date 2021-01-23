@@ -6,6 +6,7 @@ using TMPro;
 
 public class FakeButtonScript : MonoBehaviour
 {
+    // Ce script est assigné aux boutons qui n'ouvrent PAS la porte de sortie. Ils peuvent soit ne rien faire (dans ce cas ils sont taggués "FakeButton") soit ouvrir autre chose (tag "TrapButton")
     public bool buttonPressed = false;
     private float pushButtonTimer = 0;
     private float pushButtonTimerMax = 0.2f;
@@ -30,6 +31,7 @@ public class FakeButtonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Si on appuie sur le bouton, le buzzer rouge descend et remonte (petite animation) et le piège qui y est éventuellement associé se déplace également.
         if (buttonPressed)
         {
             pushButtonTimer += Time.deltaTime;
@@ -66,6 +68,7 @@ public class FakeButtonScript : MonoBehaviour
             }
         }
 
+        // Animation du texte "Press E" qui tourne
         if (pressEText.isActiveAndEnabled)
         {
             pressEText.transform.Rotate(0, 1, 0);

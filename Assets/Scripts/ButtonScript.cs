@@ -6,6 +6,7 @@ using TMPro;
 
 public class ButtonScript : MonoBehaviour
 {
+    // Ce script est assigné aux boutons qui OUVRENT LA PORTE DE SORTIE DE CHAQUE NIVEAU.
     public bool buttonPressed = false;
     private float pushButtonTimer = 0;
     private float pushButtonTimerMax = 0.2f;
@@ -29,6 +30,7 @@ public class ButtonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Si on appuie sur le bouton, le buzzer rouge descend et remonte (petite animation) et la porte qui y est associée se déplace également.
         if (buttonPressed)
         {
             pushButtonTimer += Time.deltaTime;
@@ -53,6 +55,7 @@ public class ButtonScript : MonoBehaviour
             }
         }
 
+        // Animation du texte "Press E" qui tourne
         if (pressEText.isActiveAndEnabled)
         {
             pressEText.transform.Rotate(0, 1, 0);

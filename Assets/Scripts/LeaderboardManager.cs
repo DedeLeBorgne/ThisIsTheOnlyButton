@@ -23,7 +23,7 @@ public class LeaderboardManager : MonoBehaviour
     {
         GameObject leaderBoard = this.gameObject;
 
-        // Création d'une nouvelle ligne de score
+        // Création d'une nouvelle ligne de score dans le tableau des scores
         GameObject newScorePrefab = Instantiate(scorePrefab);
 
         // Reset de la position, de la rotation et de la scale de la nouvelle ligne de score, et assignation en tant qu'enfant du leaderboard
@@ -35,18 +35,22 @@ public class LeaderboardManager : MonoBehaviour
         // Placement de la ligne de score exactement au bon endroit
         float yMarginBetweenEachLine = -5f;
         bool oneNewPersonInLeaderboard = false;
+        // Pour chaque position dans le placement...
         for (int i = 0; i < leaderBoard.transform.childCount-1; i++)
         {
+            // On vérifie si le temps du joueur bat cette position et SI OUI, on met son temps à cette position 
             if (timeInSeconds <= leaderBoard.transform.GetChild(i).transform.GetComponent<LeaderboardValue>().time)
             {
                 oneNewPersonInLeaderboard = true;
-                Debug.Log("Placing a new score at position " + (i+1));
+                Debug.Log("The personal best score is at position " + (i+1));
                 newScorePrefab.transform.position += new Vector3(0, i * yMarginBetweenEachLine, 0);
 
                 newScorePrefab.transform.GetComponent<LeaderboardValue>().time = timeInSeconds;
                 newScorePrefab.transform.GetComponent<LeaderboardValue>().pseudo = "YOUR PERSONAL BEST";
                 newScorePrefab.transform.GetComponent<LeaderboardValue>().deathCount = numberOfDeath;
 
+                // Si le temps du joueur s'est incrusté dans le classement, alors on décale toutes les positions inférieures à la sienne de 5 unités sur l'axe y.
+                // Cela permet d'éviter que le temps du joueur overlap un autre (j'aurais mieux fait d'utiliser des tableaux je crois, oups)
                 for (int y = i; y < leaderBoard.transform.childCount; y++)
                 {
                     if (leaderBoard.transform.GetChild(y).transform.GetComponent<LeaderboardValue>().time > timeInSeconds)
@@ -56,11 +60,12 @@ public class LeaderboardManager : MonoBehaviour
                     }
                   
                 }
+                // Si jamais on a battu un temps, alors on arrête de chercher si on a battu d'autres temps, car les autres sont forcément inférieurs.
                 break;
             }
         }
 
-        //Décalage de tous les scores inférieurs au nouveau score + Suppression du pire score du leaderboard si un nouveau score est entré
+        // Suppression du pire score du leaderboard si un nouveau score est entré
         if (oneNewPersonInLeaderboard)
         {
            

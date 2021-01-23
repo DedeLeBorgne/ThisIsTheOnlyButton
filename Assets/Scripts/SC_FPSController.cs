@@ -43,12 +43,16 @@ public class SC_FPSController : MonoBehaviour
         if(isPaused)
         {
             //Debug.Log("Jeu en Pause");
+            // on arrête le temps
             Time.timeScale = 0f;
             JeuEnPause();
         }
+        // Si le jeu n'est pas en pause, alors on a un full contrôle du character controller
         else
         {
+            // on remet le temps à la normale
             Time.timeScale = 1f;
+            // on désactive le menu pause
             GameObject MenuPause = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
             MenuPause.SetActive(false);
             Start();
@@ -62,6 +66,7 @@ public class SC_FPSController : MonoBehaviour
 
             float movementDirectionY = moveDirection.y;
 
+            // REGLE SPECIALE A UN CERTAIN NIVEAU DU JEU : on inverse les contrôles
             if (!invertedControls)
             {
                 moveDirection = (forward * currentSpeedForward) + (right * currentSpeedHorizontal);
@@ -70,6 +75,7 @@ public class SC_FPSController : MonoBehaviour
                 moveDirection = (-forward * currentSpeedForward) + (-right * currentSpeedHorizontal);
             }
 
+            // REGLE SPECIALE A UN CERTAIN NIVEAU DU JEU : on vérifie si le joueur bouge et si oui, on cache le bouton
             if (checkMovement)
             {
                 GameObject button = GameObject.FindGameObjectWithTag("Niveau10Activator").gameObject.transform.GetChild(0).gameObject;
@@ -82,6 +88,7 @@ public class SC_FPSController : MonoBehaviour
                 }
             }
 
+            // REGLE SPECIALE A UN CERTAIN NIVEAU DU JEU : on vérifie si le joueur regarde le bouton (check sa rotation et également sa position si il est derrière le bouton) et si oui, on cache le bouton
             if (checkRotation)
             {
                 GameObject button = GameObject.FindGameObjectWithTag("Niveau13Activator").gameObject.transform.GetChild(0).gameObject;
@@ -130,9 +137,11 @@ public class SC_FPSController : MonoBehaviour
     }
 
     void JeuEnPause(){
+        // Si on est dans le menu pause, on rend le contrôle et la visibilité de la souris
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        // On active le menu pause
         GameObject MenuPause = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
         MenuPause.SetActive(true);
     }
