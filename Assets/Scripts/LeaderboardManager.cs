@@ -10,7 +10,6 @@ public class LeaderboardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -23,17 +22,19 @@ public class LeaderboardManager : MonoBehaviour
     {
         GameObject leaderBoard = this.gameObject;
 
-        // Création d'une nouvelle ligne de score dans le tableau des scores
+        GameObject newScorePrefab = leaderBoard.transform.GetChild(0).gameObject;
+
+        /*// Création d'une nouvelle ligne de score dans le tableau des scores
         GameObject newScorePrefab = Instantiate(scorePrefab);
 
         // Reset de la position, de la rotation et de la scale de la nouvelle ligne de score, et assignation en tant qu'enfant du leaderboard
         newScorePrefab.transform.SetParent(leaderBoard.transform);
         newScorePrefab.transform.rotation = new Quaternion(0, 0, 0, 0);
         newScorePrefab.transform.localScale = new Vector3(1, 1, 1);
-        newScorePrefab.transform.position = leaderBoard.transform.position + new Vector3(0, -5f, 0);
+        newScorePrefab.transform.position = leaderBoard.transform.position + new Vector3(0, -5f, 0);*/
 
         // Placement de la ligne de score exactement au bon endroit
-        float yMarginBetweenEachLine = -5f;
+        float yMarginBetweenEachLine = -2.17f;
         bool oneNewPersonInLeaderboard = false;
         // Pour chaque position dans le placement...
         for (int i = 0; i < leaderBoard.transform.childCount-1; i++)
@@ -42,8 +43,11 @@ public class LeaderboardManager : MonoBehaviour
             if (timeInSeconds <= leaderBoard.transform.GetChild(i).transform.GetComponent<LeaderboardValue>().time)
             {
                 oneNewPersonInLeaderboard = true;
-                Debug.Log("The personal best score is at position " + (i+1));
-                newScorePrefab.transform.position += new Vector3(0, i * yMarginBetweenEachLine, 0);
+                newScorePrefab.SetActive(true);
+                Debug.Log("The personal best score is at position " + (i));
+                // newScorePrefab.transform.position += new Vector3(0, i * yMarginBetweenEachLine, 0);
+                newScorePrefab.transform.Translate(Vector3.down * (i * -yMarginBetweenEachLine), Space.World);
+                Debug.Log("Its position is at " + newScorePrefab.transform.position);
 
                 newScorePrefab.transform.GetComponent<LeaderboardValue>().time = timeInSeconds;
                 newScorePrefab.transform.GetComponent<LeaderboardValue>().pseudo = "YOUR PERSONAL BEST";
@@ -72,7 +76,7 @@ public class LeaderboardManager : MonoBehaviour
 
             GameObject currentWorstTime = leaderBoard.transform.GetChild(0).gameObject;
 
-            for (int i = 0; i < leaderBoard.transform.childCount - 1; i++) 
+            for (int i = 0; i < leaderBoard.transform.childCount; i++) 
             {
                 if (leaderBoard.transform.GetChild(i).transform.GetComponent<LeaderboardValue>().time > currentWorstTime.transform.GetComponent<LeaderboardValue>().time)
                 {
