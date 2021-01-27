@@ -22,16 +22,16 @@ public class LeaderboardManager : MonoBehaviour
     {
         GameObject leaderBoard = this.gameObject;
 
-        GameObject newScorePrefab = leaderBoard.transform.GetChild(0).gameObject;
+        // GameObject newScorePrefab = leaderBoard.transform.GetChild(0).gameObject;
 
-        /*// Création d'une nouvelle ligne de score dans le tableau des scores
+        // Création d'une nouvelle ligne de score dans le tableau des scores
         GameObject newScorePrefab = Instantiate(scorePrefab);
 
         // Reset de la position, de la rotation et de la scale de la nouvelle ligne de score, et assignation en tant qu'enfant du leaderboard
         newScorePrefab.transform.SetParent(leaderBoard.transform);
         newScorePrefab.transform.rotation = new Quaternion(0, 0, 0, 0);
         newScorePrefab.transform.localScale = new Vector3(1, 1, 1);
-        newScorePrefab.transform.position = leaderBoard.transform.position + new Vector3(0, -5f, 0);*/
+        newScorePrefab.transform.position = leaderBoard.transform.position;
 
         // Placement de la ligne de score exactement au bon endroit
         float yMarginBetweenEachLine = -2.17f;
@@ -46,7 +46,7 @@ public class LeaderboardManager : MonoBehaviour
                 newScorePrefab.SetActive(true);
                 Debug.Log("The personal best score is at position " + (i));
                 // newScorePrefab.transform.position += new Vector3(0, i * yMarginBetweenEachLine, 0);
-                newScorePrefab.transform.Translate(Vector3.down * (i * -yMarginBetweenEachLine), Space.World);
+                newScorePrefab.transform.Translate(Vector3.down * ((i+1) * -yMarginBetweenEachLine), Space.World);
                 Debug.Log("Its position is at " + newScorePrefab.transform.position);
 
                 newScorePrefab.transform.GetComponent<LeaderboardValue>().time = timeInSeconds;
@@ -72,11 +72,11 @@ public class LeaderboardManager : MonoBehaviour
         // Suppression du pire score du leaderboard si un nouveau score est entré
         if (oneNewPersonInLeaderboard)
         {
-           
+
 
             GameObject currentWorstTime = leaderBoard.transform.GetChild(0).gameObject;
 
-            for (int i = 0; i < leaderBoard.transform.childCount; i++) 
+            for (int i = 0; i < leaderBoard.transform.childCount; i++)
             {
                 if (leaderBoard.transform.GetChild(i).transform.GetComponent<LeaderboardValue>().time > currentWorstTime.transform.GetComponent<LeaderboardValue>().time)
                 {
@@ -87,6 +87,7 @@ public class LeaderboardManager : MonoBehaviour
             // Debug.Log("Destroying " + currentWorstTime.transform.GetComponent<LeaderboardValue>().time + " - " + currentWorstTime.transform.GetComponent<LeaderboardValue>().pseudo);
             Destroy(currentWorstTime);
         }
+        else Destroy(newScorePrefab);
 
 
 
