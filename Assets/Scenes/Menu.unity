@@ -1981,7 +1981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 76.75
-  pseudo: Dev_Liloosh
+  pseudo: DEV_Liloosh
   deathCount: 0
   timeText: {fileID: 124602283}
   nameText: {fileID: 997494772}
